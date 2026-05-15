@@ -51,10 +51,12 @@
       --font-mono: 'DM Mono', monospace;
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-      --font-main-size: 1.1rem;
-      /* Increased from 1rem */
-      --line-height-base: 1.8;
-      /* Slightly more breathing room */
+      /* ── BASE FONT SIZE: comfortable reading ── */
+      --fs-body: 1.05rem;       /* up from .88–.92rem */
+      --fs-small: 0.9rem;       /* up from .75–.82rem */
+      --fs-xsmall: 0.82rem;     /* up from .65–.72rem */
+      --fs-mono: 0.78rem;       /* up from .65–.7rem */
+      --fs-tag: 0.72rem;        /* slightly bigger tags */
     }
 
     [data-theme="dark"] {
@@ -92,23 +94,17 @@
     html {
       scroll-behavior: smooth;
       overflow-x: hidden;
+      /* Base font size bump for comfortable reading on all screens */
+      font-size: 16px;
     }
 
     body {
       font-family: var(--font-body);
+      font-size: var(--fs-body);
       background: var(--bg);
       color: var(--text-dark);
       overflow-x: hidden;
-      line-height: 1.7;
-      transition: background 0.4s ease, color 0.4s ease;
-
-      font-family: var(--font-body);
-      background: var(--bg);
-      color: var(--text-dark);
-      overflow-x: hidden;
-      font-size: var(--font-main-size);
-      /* Applied here */
-      line-height: var(--line-height-base);
+      line-height: 1.75;
       transition: background 0.4s ease, color 0.4s ease;
     }
 
@@ -150,7 +146,7 @@
 
     .preloader-logo {
       font-family: var(--font-display);
-      font-size: 2.4rem;
+      font-size: 2.6rem;
       font-weight: 700;
       color: #fff;
       letter-spacing: 3px;
@@ -178,25 +174,13 @@
     }
 
     @keyframes loading {
-      from {
-        width: 0
-      }
-
-      to {
-        width: 100%
-      }
+      from { width: 0 }
+      to   { width: 100% }
     }
 
     @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 1
-      }
-
-      50% {
-        opacity: .4
-      }
+      0%, 100% { opacity: 1 }
+      50%       { opacity: .4 }
     }
 
     /* ── UTILITIES ── */
@@ -206,7 +190,7 @@
 
     .section-title {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
       font-weight: 700;
       line-height: 1.1;
       color: var(--text-dark);
@@ -214,7 +198,7 @@
 
     .section-subtitle {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: var(--fs-mono);
       font-weight: 500;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -223,11 +207,11 @@
     }
 
     .section-desc {
-      font-size: 1rem;
+      font-size: var(--fs-body);
       color: var(--text-muted);
       max-width: 560px;
       margin: 1rem 0 0;
-      line-height: 1.85;
+      line-height: 1.9;
     }
 
     .gradient-text {
@@ -279,20 +263,21 @@
       transform: scale(1.08);
     }
 
-    .theme-toggle .bi-sun-fill {
-      display: none;
+    .theme-toggle .bi-sun-fill  { display: none; }
+    .theme-toggle .bi-moon-fill { display: block; }
+
+    [data-theme="dark"] .theme-toggle .bi-sun-fill  { display: block; }
+    [data-theme="dark"] .theme-toggle .bi-moon-fill { display: none; }
+
+    /* ── LOGO DARK MODE ── */
+    .brand-logo,
+    .footer-logo {
+      transition: filter 0.4s ease;
     }
 
-    .theme-toggle .bi-moon-fill {
-      display: block;
-    }
-
-    [data-theme="dark"] .theme-toggle .bi-sun-fill {
-      display: block;
-    }
-
-    [data-theme="dark"] .theme-toggle .bi-moon-fill {
-      display: none;
+    [data-theme="dark"] .brand-logo,
+    [data-theme="dark"] .footer-logo {
+      filter: brightness(0) invert(1);
     }
 
     /* ── BUTTONS ── */
@@ -300,11 +285,11 @@
       display: inline-flex;
       align-items: center;
       gap: .6rem;
-      padding: 13px 30px;
+      padding: 14px 32px;
       background: var(--navy);
       color: #fff;
       font-family: var(--font-body);
-      font-size: .88rem;
+      font-size: var(--fs-small);
       font-weight: 600;
       border: 2px solid var(--navy);
       border-radius: 4px;
@@ -326,11 +311,11 @@
       display: inline-flex;
       align-items: center;
       gap: .6rem;
-      padding: 12px 30px;
+      padding: 13px 32px;
       background: transparent;
       color: var(--text-dark);
       font-family: var(--font-body);
-      font-size: .88rem;
+      font-size: var(--fs-small);
       font-weight: 600;
       border: 2px solid var(--border);
       border-radius: 4px;
@@ -387,19 +372,19 @@
     .brand-text {
       display: flex;
       flex-direction: column;
-      line-height: 1.1;
+      line-height: 1.15;
     }
 
     .brand-name {
       font-family: var(--font-display);
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: var(--text-dark);
     }
 
     .brand-tag {
       font-family: var(--font-mono);
-      font-size: .58rem;
+      font-size: .62rem;
       color: var(--accent);
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -417,7 +402,7 @@
     .nav-links a {
       display: block;
       padding: 8px 14px;
-      font-size: .84rem;
+      font-size: .9rem;
       font-weight: 500;
       color: var(--text-mid);
       text-decoration: none;
@@ -457,14 +442,8 @@
       font-weight: 600 !important;
     }
 
-    .nav-cta::after {
-      display: none !important;
-    }
-
-    .nav-cta:hover {
-      background: var(--navy-deep) !important;
-      color: #fff !important;
-    }
+    .nav-cta::after   { display: none !important; }
+    .nav-cta:hover    { background: var(--navy-deep) !important; color: #fff !important; }
 
     .hamburger {
       display: none;
@@ -478,43 +457,33 @@
 
     .hamburger span {
       display: block;
-      width: 24px;
-      height: 2px;
+      width: 26px;
+      height: 2.5px;
       background: var(--text-dark);
       border-radius: 2px;
       transition: var(--transition);
     }
 
-    .hamburger.active span:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
-    }
-
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
-    }
+    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     .mobile-nav {
       display: none;
       position: fixed;
       top: 0;
       right: -100%;
-      width: min(310px, 85vw);
+      width: min(320px, 88vw);
       height: 100vh;
       background: var(--surface);
       border-left: 1px solid var(--border);
       z-index: 999;
-      padding: 80px 28px 28px;
+      padding: 80px 30px 30px;
       transition: right .4s cubic-bezier(.4, 0, .2, 1);
       overflow-y: auto;
     }
 
-    .mobile-nav.open {
-      right: 0;
-    }
+    .mobile-nav.open { right: 0; }
 
     .mobile-nav-overlay {
       display: none;
@@ -525,9 +494,7 @@
       backdrop-filter: blur(4px);
     }
 
-    .mobile-nav-overlay.open {
-      display: block;
-    }
+    .mobile-nav-overlay.open { display: block; }
 
     .mobile-nav-links {
       list-style: none;
@@ -539,11 +506,12 @@
       border-bottom: 1px solid var(--border-soft);
     }
 
+    /* ── MOBILE NAV: bigger tap targets & text ── */
     .mobile-nav-links a {
       display: block;
-      padding: 15px 0;
+      padding: 18px 0;
       color: var(--text-dark);
-      font-size: .95rem;
+      font-size: 1.08rem;
       font-weight: 500;
       text-decoration: none;
       transition: var(--transition);
@@ -571,9 +539,7 @@
       opacity: 0.05;
     }
 
-    [data-theme="dark"] .hero-bg {
-      opacity: 0.04;
-    }
+    [data-theme="dark"] .hero-bg { opacity: 0.04; }
 
     .hero-pattern {
       position: absolute;
@@ -583,9 +549,7 @@
       opacity: 0.04;
     }
 
-    [data-theme="dark"] .hero-pattern {
-      opacity: 0.08;
-    }
+    [data-theme="dark"] .hero-pattern { opacity: 0.08; }
 
     .hero-shape {
       position: absolute;
@@ -597,21 +561,18 @@
       border-radius: 50%;
     }
 
-    .hero-content {
-      position: relative;
-      z-index: 2;
-    }
+    .hero-content { position: relative; z-index: 2; }
 
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 7px 16px;
+      padding: 8px 18px;
       background: var(--accent-pale);
       border: 1px solid rgba(201, 168, 76, .3);
       border-radius: 50px;
       font-family: var(--font-mono);
-      font-size: .7rem;
+      font-size: var(--fs-mono);
       font-weight: 500;
       color: #8a6a20;
       letter-spacing: 1px;
@@ -619,9 +580,7 @@
       margin-bottom: 1.5rem;
     }
 
-    [data-theme="dark"] .hero-badge {
-      color: var(--accent-light);
-    }
+    [data-theme="dark"] .hero-badge { color: var(--accent-light); }
 
     .hero-badge .dot {
       width: 6px;
@@ -632,20 +591,13 @@
     }
 
     @keyframes dotBlink {
-
-      0%,
-      100% {
-        opacity: 1
-      }
-
-      50% {
-        opacity: .2
-      }
+      0%, 100% { opacity: 1 }
+      50%       { opacity: .2 }
     }
 
     .hero-heading {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 5vw, 4rem);
+      font-size: clamp(2.3rem, 5vw, 4.2rem);
       font-weight: 700;
       line-height: 1.05;
       color: var(--text-dark);
@@ -654,23 +606,21 @@
 
     .hero-typed-wrap {
       font-family: var(--font-display);
-      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
       font-weight: 600;
       min-height: 1.4em;
       margin-bottom: 1.5rem;
       color: var(--accent);
     }
 
-    .typed-cursor {
-      color: var(--text-dark);
-    }
+    .typed-cursor { color: var(--text-dark); }
 
     .hero-desc {
-      font-size: 1rem;
+      font-size: clamp(1rem, 1.5vw, 1.08rem);
       color: var(--text-muted);
-      max-width: 520px;
+      max-width: 540px;
       margin-bottom: 2.5rem;
-      line-height: 1.9;
+      line-height: 1.95;
     }
 
     .hero-btns {
@@ -684,33 +634,32 @@
       display: flex;
       gap: 2.5rem;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     .hero-stat-divider {
       width: 1px;
-      height: 48px;
+      height: 52px;
       background: var(--border);
     }
 
     .hero-stat-num {
       font-family: var(--font-display);
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       font-weight: 700;
       color: var(--text-dark);
       line-height: 1;
     }
 
-    .hero-stat-num span {
-      color: var(--accent);
-    }
+    .hero-stat-num span { color: var(--accent); }
 
     .hero-stat-label {
       font-family: var(--font-mono);
-      font-size: .68rem;
+      font-size: var(--fs-mono);
       color: var(--text-muted);
       letter-spacing: 1px;
       text-transform: uppercase;
-      margin-top: 4px;
+      margin-top: 5px;
     }
 
     .hero-card-float {
@@ -733,14 +682,14 @@
     .hero-card-1 {
       top: 50px;
       right: 0;
-      width: 220px;
+      width: 230px;
       animation: floatCard 5s ease-in-out infinite;
     }
 
     .hero-card-2 {
       bottom: 80px;
       left: 0;
-      width: 210px;
+      width: 220px;
       animation: floatCard 6s ease-in-out infinite;
       animation-delay: 2s;
     }
@@ -748,81 +697,60 @@
     .hero-card-3 {
       top: 50%;
       left: 50%;
-      margin-left: -105px;
-      width: 210px;
+      margin-left: -110px;
+      width: 220px;
       animation: floatCard3 7s ease-in-out infinite;
       animation-delay: 1s;
     }
 
     @keyframes floatCard {
-
-      0%,
-      100% {
-        transform: translateY(0)
-      }
-
-      50% {
-        transform: translateY(-12px)
-      }
+      0%, 100% { transform: translateY(0) }
+      50%       { transform: translateY(-12px) }
     }
 
     @keyframes floatCard3 {
-
-      0%,
-      100% {
-        transform: translateY(-50%)
-      }
-
-      50% {
-        transform: translateY(calc(-50% - 12px))
-      }
+      0%, 100% { transform: translateY(-50%) }
+      50%       { transform: translateY(calc(-50% - 12px)) }
     }
 
     .card-icon-wrap {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       background: var(--navy);
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: #fff;
       margin-bottom: 10px;
     }
 
-    .card-icon-gold {
-      background: linear-gradient(135deg, var(--accent), #a07828);
-    }
-
-    .card-icon-green {
-      background: linear-gradient(135deg, #2ec27e, #1a9a5c);
-    }
+    .card-icon-gold  { background: linear-gradient(135deg, var(--accent), #a07828); }
+    .card-icon-green { background: linear-gradient(135deg, #2ec27e, #1a9a5c); }
 
     .card-label {
       font-family: var(--font-mono);
-      font-size: .65rem;
+      font-size: .72rem;
       color: var(--text-muted);
       margin-bottom: 4px;
     }
 
     .card-value {
       font-family: var(--font-display);
-      font-size: 1.5rem;
+      font-size: 1.55rem;
       font-weight: 700;
       color: var(--text-dark);
     }
 
     .card-sub {
-      font-size: .7rem;
+      font-size: .75rem;
       color: #2ec27e;
-      margin-top: 2px;
+      margin-top: 3px;
       font-weight: 500;
     }
 
-    .card-sub-gold {
-      color: var(--accent);
-    }
+    .card-sub-gold { color: var(--accent); }
 
     .hero-scroll {
       position: absolute;
@@ -836,16 +764,14 @@
       gap: 8px;
       color: var(--text-muted);
       font-family: var(--font-mono);
-      font-size: .62rem;
+      font-size: .7rem;
       letter-spacing: 2px;
       text-transform: uppercase;
       text-decoration: none;
       transition: var(--transition);
     }
 
-    .hero-scroll:hover {
-      color: var(--accent);
-    }
+    .hero-scroll:hover { color: var(--accent); }
 
     .scroll-mouse {
       width: 22px;
@@ -868,17 +794,8 @@
     }
 
     @keyframes scrollWheel {
-
-      0%,
-      100% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0)
-      }
-
-      100% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(11px)
-      }
+      0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0) }
+      100%      { opacity: 0; transform: translateX(-50%) translateY(11px) }
     }
 
     /* ── ABOUT ── */
@@ -898,10 +815,7 @@
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
     }
 
-    .about-img-stack {
-      position: relative;
-      height: 480px;
-    }
+    .about-img-stack  { position: relative; height: 480px; }
 
     .about-img-main {
       position: absolute;
@@ -914,11 +828,7 @@
       box-shadow: var(--shadow-lg);
     }
 
-    .about-img-main img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .about-img-main img { width: 100%; height: 100%; object-fit: cover; }
 
     .about-img-accent {
       position: absolute;
@@ -932,19 +842,15 @@
       box-shadow: var(--shadow-md);
     }
 
-    .about-img-accent img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .about-img-accent img { width: 100%; height: 100%; object-fit: cover; }
 
     .about-exp-badge {
       position: absolute;
       top: 50%;
       left: 60%;
       transform: translate(-50%, -50%);
-      width: 110px;
-      height: 110px;
+      width: 115px;
+      height: 115px;
       background: var(--navy);
       border-radius: 50%;
       display: flex;
@@ -958,7 +864,7 @@
 
     .about-exp-badge .num {
       font-family: var(--font-display);
-      font-size: 2rem;
+      font-size: 2.1rem;
       font-weight: 700;
       color: #fff;
       line-height: 1;
@@ -966,12 +872,12 @@
 
     .about-exp-badge .label {
       font-family: var(--font-mono);
-      font-size: .52rem;
+      font-size: .58rem;
       color: rgba(255, 255, 255, .7);
       text-transform: uppercase;
       letter-spacing: 1px;
       text-align: center;
-      line-height: 1.3;
+      line-height: 1.4;
     }
 
     .feature-list {
@@ -983,27 +889,26 @@
     .feature-list li {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      padding: 10px 0;
-      font-size: .92rem;
+      gap: 13px;
+      padding: 11px 0;
+      font-size: var(--fs-body);
       color: var(--text-mid);
       border-bottom: 1px solid var(--border-soft);
+      line-height: 1.7;
     }
 
-    .feature-list li:last-child {
-      border-bottom: none;
-    }
+    .feature-list li:last-child { border-bottom: none; }
 
     .feature-list .icon {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       background: var(--navy);
       border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: .75rem;
+      font-size: .8rem;
       flex-shrink: 0;
       margin-top: 2px;
     }
@@ -1019,7 +924,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 18px 14px;
+      padding: 20px 14px;
       text-align: center;
       transition: var(--transition);
       box-shadow: var(--shadow-sm);
@@ -1033,24 +938,22 @@
 
     .counter-num {
       font-family: var(--font-display);
-      font-size: 2rem;
+      font-size: 2.1rem;
       font-weight: 700;
       color: var(--text-dark);
       line-height: 1;
     }
 
     .counter-label {
-      font-size: .72rem;
+      font-size: var(--fs-xsmall);
       color: var(--text-muted);
-      margin-top: 6px;
+      margin-top: 7px;
       font-family: var(--font-mono);
       letter-spacing: .5px;
     }
 
     /* ── SERVICES ── */
-    #services {
-      background: var(--bg);
-    }
+    #services { background: var(--bg); }
 
     .services-grid {
       display: grid;
@@ -1064,7 +967,7 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 34px 30px;
+      padding: 36px 32px;
       overflow: hidden;
       cursor: pointer;
       transition: var(--transition);
@@ -1089,25 +992,21 @@
       box-shadow: var(--shadow-lg);
     }
 
-    .service-card:hover::before {
-      transform: scaleX(1);
-    }
+    .service-card:hover::before { transform: scaleX(1); }
 
     .service-icon-wrap {
-      width: 60px;
-      height: 60px;
+      width: 62px;
+      height: 62px;
       border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      margin-bottom: 1.4rem;
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
       transition: var(--transition);
     }
 
-    .service-card:hover .service-icon-wrap {
-      transform: scale(1.08);
-    }
+    .service-card:hover .service-icon-wrap { transform: scale(1.08); }
 
     .icon-blue {
       background: rgba(26, 43, 74, .08);
@@ -1127,22 +1026,20 @@
       border-color: rgba(26, 43, 74, .6);
     }
 
-    [data-theme="dark"] .icon-gold {
-      color: var(--accent-light);
-    }
+    [data-theme="dark"] .icon-gold { color: var(--accent-light); }
 
     .service-title {
       font-family: var(--font-display);
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       font-weight: 700;
       color: var(--text-dark);
-      margin-bottom: .8rem;
+      margin-bottom: .9rem;
     }
 
     .service-desc {
-      font-size: .88rem;
+      font-size: var(--fs-body);
       color: var(--text-muted);
-      line-height: 1.8;
+      line-height: 1.85;
       margin-bottom: 1.4rem;
     }
 
@@ -1153,12 +1050,12 @@
     }
 
     .service-tag {
-      padding: 4px 11px;
+      padding: 5px 12px;
       background: var(--bg-alt);
       border: 1px solid var(--border);
       border-radius: 20px;
       font-family: var(--font-mono);
-      font-size: .66rem;
+      font-size: var(--fs-tag);
       color: var(--text-muted);
       transition: var(--transition);
     }
@@ -1180,13 +1077,9 @@
       transition: var(--transition);
     }
 
-    [data-theme="dark"] .service-number {
-      color: rgba(255, 255, 255, .04);
-    }
+    [data-theme="dark"] .service-number { color: rgba(255, 255, 255, .04); }
 
-    .service-card:hover .service-number {
-      color: rgba(201, 168, 76, .07);
-    }
+    .service-card:hover .service-number { color: rgba(201, 168, 76, .07); }
 
     /* ── INDUSTRIES ── */
     #industries {
@@ -1203,21 +1096,10 @@
       background-size: 32px 32px;
     }
 
-    #industries .section-title {
-      color: #fff;
-    }
-
-    #industries .section-subtitle {
-      color: var(--accent);
-    }
-
-    #industries .section-desc {
-      color: rgba(255, 255, 255, .5);
-    }
-
-    #industries .accent-line {
-      background: linear-gradient(90deg, var(--accent), rgba(201, 168, 76, .3));
-    }
+    #industries .section-title  { color: #fff; }
+    #industries .section-subtitle { color: var(--accent); }
+    #industries .section-desc   { color: rgba(255, 255, 255, .5); }
+    #industries .accent-line    { background: linear-gradient(90deg, var(--accent), rgba(201, 168, 76, .3)); }
 
     .industry-cards {
       display: grid;
@@ -1230,7 +1112,7 @@
       background: rgba(255, 255, 255, .05);
       border: 1px solid rgba(255, 255, 255, .1);
       border-radius: 18px;
-      padding: 30px 22px;
+      padding: 32px 22px;
       text-align: center;
       transition: var(--transition);
       cursor: pointer;
@@ -1253,38 +1135,33 @@
       background: rgba(255, 255, 255, .08);
     }
 
-    .industry-card:hover::after {
-      opacity: 1;
-    }
+    .industry-card:hover::after { opacity: 1; }
 
     .industry-icon {
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       margin-bottom: 1rem;
       display: block;
       transition: var(--transition);
     }
 
-    .industry-card:hover .industry-icon {
-      transform: scale(1.15);
-    }
+    .industry-card:hover .industry-icon { transform: scale(1.15); }
 
     .industry-name {
       font-family: var(--font-display);
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: .4rem;
+      margin-bottom: .5rem;
     }
 
     .industry-desc {
-      font-size: .77rem;
-      color: rgba(255, 255, 255, .45);
+      font-size: var(--fs-xsmall);
+      color: rgba(255, 255, 255, .5);
+      line-height: 1.6;
     }
 
     /* ── CLIENTS ── */
-    #clients-sec {
-      background: var(--bg-alt);
-    }
+    #clients-sec { background: var(--bg-alt); }
 
     .clients-slider-wrap {
       overflow: hidden;
@@ -1332,7 +1209,7 @@
 
     .client-logo-card span {
       font-family: var(--font-display);
-      font-size: .92rem;
+      font-size: var(--fs-body);
       font-weight: 700;
       color: var(--text-muted);
       letter-spacing: .5px;
@@ -1340,14 +1217,10 @@
       white-space: nowrap;
     }
 
-    .client-logo-card:hover span {
-      color: var(--text-dark);
-    }
+    .client-logo-card:hover span { color: var(--text-dark); }
 
     /* ── PARTNERS ── */
-    #partners {
-      background: var(--bg);
-    }
+    #partners { background: var(--bg); }
 
     .partners-grid {
       display: grid;
@@ -1360,10 +1233,10 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 24px;
+      padding: 26px;
       display: flex;
       align-items: flex-start;
-      gap: 16px;
+      gap: 17px;
       transition: var(--transition);
     }
 
@@ -1374,36 +1247,34 @@
     }
 
     .partner-flag {
-      font-size: 2rem;
+      font-size: 2.1rem;
       flex-shrink: 0;
     }
 
     .partner-name {
       font-family: var(--font-display);
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: var(--text-dark);
-      margin-bottom: .3rem;
+      margin-bottom: .35rem;
     }
 
     .partner-loc {
       font-family: var(--font-mono);
-      font-size: .68rem;
+      font-size: var(--fs-tag);
       color: var(--accent);
       letter-spacing: .5px;
     }
 
     .partner-desc {
-      font-size: .82rem;
+      font-size: var(--fs-small);
       color: var(--text-muted);
-      margin-top: .4rem;
-      line-height: 1.6;
+      margin-top: .5rem;
+      line-height: 1.7;
     }
 
     /* ── WHY US ── */
-    #why-us {
-      background: var(--bg-alt);
-    }
+    #why-us { background: var(--bg-alt); }
 
     .why-grid {
       display: grid;
@@ -1415,7 +1286,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 34px 26px;
+      padding: 36px 28px;
       transition: var(--transition);
     }
 
@@ -1427,7 +1298,7 @@
 
     .why-num {
       font-family: var(--font-mono);
-      font-size: .7rem;
+      font-size: var(--fs-tag);
       font-weight: 700;
       color: var(--accent);
       letter-spacing: 2px;
@@ -1446,15 +1317,13 @@
     }
 
     .why-icon {
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       color: var(--navy);
       margin-bottom: 1rem;
       transition: var(--transition);
     }
 
-    [data-theme="dark"] .why-icon {
-      color: var(--accent);
-    }
+    [data-theme="dark"] .why-icon { color: var(--accent); }
 
     .why-card:hover .why-icon {
       transform: scale(1.1);
@@ -1463,28 +1332,26 @@
 
     .why-title {
       font-family: var(--font-display);
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--text-dark);
-      margin-bottom: .7rem;
+      margin-bottom: .75rem;
     }
 
     .why-desc {
-      font-size: .87rem;
+      font-size: var(--fs-body);
       color: var(--text-muted);
-      line-height: 1.75;
+      line-height: 1.8;
     }
 
     /* ── TESTIMONIALS ── */
-    #testimonials {
-      background: var(--bg);
-    }
+    #testimonials { background: var(--bg); }
 
     .testimonial-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 34px;
+      padding: 36px;
       position: relative;
       overflow: hidden;
       transition: var(--transition);
@@ -1511,15 +1378,15 @@
 
     .stars {
       color: var(--accent);
-      font-size: .9rem;
+      font-size: .95rem;
       margin-bottom: 1rem;
     }
 
     .testimonial-text {
       font-family: var(--font-display);
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: var(--text-mid);
-      line-height: 1.8;
+      line-height: 1.85;
       margin-bottom: 1.5rem;
       font-style: italic;
     }
@@ -1527,19 +1394,19 @@
     .testimonial-author {
       display: flex;
       align-items: center;
-      gap: 13px;
+      gap: 14px;
     }
 
     .author-avatar {
-      width: 46px;
-      height: 46px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
       background: var(--navy);
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-display);
-      font-size: .95rem;
+      font-size: 1rem;
       font-weight: 700;
       color: #fff;
       flex-shrink: 0;
@@ -1547,35 +1414,26 @@
 
     .author-name {
       font-family: var(--font-display);
-      font-size: .95rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--text-dark);
     }
 
     .author-role {
-      font-size: .75rem;
+      font-size: var(--fs-tag);
       color: var(--accent);
       font-family: var(--font-mono);
     }
 
-    .swiper-pagination-bullet {
-      background: var(--border) !important;
-      opacity: 1;
-    }
-
-    .swiper-pagination-bullet-active {
-      background: var(--navy) !important;
-    }
-
-    [data-theme="dark"] .swiper-pagination-bullet-active {
-      background: var(--accent) !important;
-    }
+    .swiper-pagination-bullet { background: var(--border) !important; opacity: 1; }
+    .swiper-pagination-bullet-active { background: var(--navy) !important; }
+    [data-theme="dark"] .swiper-pagination-bullet-active { background: var(--accent) !important; }
 
     .swiper-button-next,
     .swiper-button-prev {
       color: var(--text-dark) !important;
-      width: 38px !important;
-      height: 38px !important;
+      width: 40px !important;
+      height: 40px !important;
       background: var(--surface);
       border-radius: 50%;
       border: 1px solid var(--border);
@@ -1589,9 +1447,7 @@
     }
 
     /* ── CONTACT ── */
-    #contact {
-      background: var(--bg-alt);
-    }
+    #contact { background: var(--bg-alt); }
 
     .contact-info-card {
       background: var(--surface);
@@ -1600,7 +1456,7 @@
       padding: 22px;
       margin-bottom: 1rem;
       display: flex;
-      gap: 14px;
+      gap: 15px;
       align-items: flex-start;
       transition: var(--transition);
     }
@@ -1612,77 +1468,71 @@
     }
 
     .contact-icon {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       background: var(--navy);
       border-radius: 11px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       flex-shrink: 0;
     }
 
-    .contact-icon.gold {
-      background: linear-gradient(135deg, var(--accent), #a07828);
-    }
+    .contact-icon.gold { background: linear-gradient(135deg, var(--accent), #a07828); }
 
     .contact-detail-label {
       font-family: var(--font-mono);
-      font-size: .65rem;
+      font-size: var(--fs-tag);
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
 
     .contact-detail-value {
-      font-size: .9rem;
+      font-size: var(--fs-body);
       color: var(--text-dark);
       font-weight: 500;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     .contact-form-wrap {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 38px;
+      padding: 40px;
     }
 
-    .form-group {
-      margin-bottom: 1.1rem;
-    }
+    .form-group { margin-bottom: 1.2rem; }
 
     .form-label-custom {
       display: block;
       font-family: var(--font-mono);
-      font-size: .7rem;
+      font-size: var(--fs-tag);
       font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 7px;
+      margin-bottom: 8px;
     }
 
     .form-control-custom {
       width: 100%;
-      padding: 12px 15px;
+      padding: 13px 16px;
       background: var(--bg-alt);
       border: 1.5px solid var(--border);
       border-radius: 8px;
       color: var(--text-dark);
       font-family: var(--font-body);
-      font-size: .9rem;
+      font-size: var(--fs-body);
       transition: var(--transition);
       outline: none;
       resize: none;
     }
 
-    .form-control-custom::placeholder {
-      color: var(--text-muted);
-    }
+    .form-control-custom::placeholder { color: var(--text-muted); }
 
     .form-control-custom:focus {
       border-color: var(--accent);
@@ -1704,30 +1554,22 @@
       padding-top: 70px;
     }
 
-    .footer-brand .brand-name {
-      color: #fff;
-    }
-
-    .footer-brand .brand-tag {
-      color: var(--accent);
-    }
+    .footer-brand .brand-name { color: #fff; }
+    .footer-brand .brand-tag  { color: var(--accent); }
 
     .footer-desc {
-      font-size: .86rem;
+      font-size: var(--fs-small);
       color: rgba(255, 255, 255, .45);
-      line-height: 1.85;
+      line-height: 1.9;
       margin: 1rem 0 1.5rem;
       max-width: 300px;
     }
 
-    .social-links {
-      display: flex;
-      gap: 10px;
-    }
+    .social-links { display: flex; gap: 10px; }
 
     .social-link {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       background: rgba(255, 255, 255, .06);
       border: 1px solid rgba(255, 255, 255, .1);
       border-radius: 8px;
@@ -1737,7 +1579,7 @@
       color: rgba(255, 255, 255, .4);
       text-decoration: none;
       transition: var(--transition);
-      font-size: .9rem;
+      font-size: .95rem;
     }
 
     .social-link:hover {
@@ -1749,7 +1591,7 @@
 
     .footer-heading {
       font-family: var(--font-display);
-      font-size: .9rem;
+      font-size: .92rem;
       font-weight: 700;
       color: #fff;
       text-transform: uppercase;
@@ -1769,20 +1611,14 @@
       background: var(--accent);
     }
 
-    .footer-links {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+    .footer-links { list-style: none; padding: 0; margin: 0; }
 
-    .footer-links li {
-      margin-bottom: .6rem;
-    }
+    .footer-links li { margin-bottom: .7rem; }
 
     .footer-links a {
       color: rgba(255, 255, 255, .4);
       text-decoration: none;
-      font-size: .86rem;
+      font-size: var(--fs-small);
       transition: var(--transition);
       display: flex;
       align-items: center;
@@ -1804,8 +1640,9 @@
       display: flex;
       gap: 10px;
       margin-bottom: 1rem;
-      font-size: .85rem;
+      font-size: var(--fs-small);
       color: rgba(255, 255, 255, .4);
+      line-height: 1.65;
     }
 
     .footer-contact-item i {
@@ -1816,7 +1653,7 @@
 
     .footer-bottom {
       border-top: 1px solid rgba(255, 255, 255, .08);
-      padding: 18px 0;
+      padding: 20px 0;
       margin-top: 50px;
       display: flex;
       align-items: center;
@@ -1826,41 +1663,36 @@
     }
 
     .footer-bottom p {
-      font-size: .8rem;
+      font-size: var(--fs-xsmall);
       color: rgba(255, 255, 255, .3);
       margin: 0;
     }
 
-    .footer-bottom-links {
-      display: flex;
-      gap: 1.5rem;
-    }
+    .footer-bottom-links { display: flex; gap: 1.5rem; }
 
     .footer-bottom-links a {
-      font-size: .8rem;
+      font-size: var(--fs-xsmall);
       color: rgba(255, 255, 255, .3);
       text-decoration: none;
       transition: var(--transition);
     }
 
-    .footer-bottom-links a:hover {
-      color: var(--accent);
-    }
+    .footer-bottom-links a:hover { color: var(--accent); }
 
     /* ── FLOATING ── */
     .whatsapp-btn {
       position: fixed;
       bottom: 28px;
       left: 28px;
-      width: 54px;
-      height: 54px;
+      width: 56px;
+      height: 56px;
       background: #25D366;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: 1.5rem;
+      font-size: 1.55rem;
       text-decoration: none;
       box-shadow: 0 4px 20px rgba(37, 211, 102, .35);
       z-index: 997;
@@ -1874,23 +1706,16 @@
     }
 
     @keyframes float {
-
-      0%,
-      100% {
-        transform: translateY(0)
-      }
-
-      50% {
-        transform: translateY(-6px)
-      }
+      0%, 100% { transform: translateY(0) }
+      50%       { transform: translateY(-6px) }
     }
 
     .scroll-top {
       position: fixed;
       bottom: 28px;
       right: 28px;
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       background: var(--navy);
       border-radius: 50%;
       display: flex;
@@ -1904,54 +1729,90 @@
       opacity: 0;
       visibility: hidden;
       transition: var(--transition);
-      font-size: 1rem;
+      font-size: 1.05rem;
     }
 
-    .scroll-top.visible {
-      opacity: 1;
-      visibility: visible;
-    }
+    .scroll-top.visible { opacity: 1; visibility: visible; }
 
     .scroll-top:hover {
       transform: translateY(-3px);
       background: var(--accent);
     }
 
-    /* ── RESPONSIVE ── */
-    @media(max-width:991px) {
-      .section-padding {
-        padding: 70px 0;
+    /* ══════════════════════════════════════════
+       RESPONSIVE — MOBILE FIRST TYPOGRAPHY
+       Mobile: comfortable, scannable text sizes
+    ══════════════════════════════════════════ */
+    @media (max-width: 991px) {
+      :root {
+        --fs-body:   1.05rem;
+        --fs-small:  0.92rem;
+        --fs-xsmall: 0.84rem;
+        --fs-mono:   0.78rem;
+        --fs-tag:    0.74rem;
       }
 
-      .nav-links {
-        display: none;
-      }
+      .section-padding { padding: 70px 0; }
 
-      .hamburger {
-        display: flex;
-      }
-
-      .mobile-nav {
-        display: block;
-      }
+      .nav-links  { display: none; }
+      .hamburger  { display: flex; }
+      .mobile-nav { display: block; }
 
       .hero-visual {
         height: 300px;
         margin-top: 3rem;
       }
 
-      .about-img-stack {
-        height: 350px;
-      }
+      .about-img-stack { height: 350px; }
 
-      .counters-row {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      .counters-row { grid-template-columns: repeat(3, 1fr); }
     }
 
-    @media(max-width:767px) {
-      .section-padding {
-        padding: 60px 0;
+    @media (max-width: 767px) {
+      :root {
+        /* Slightly bigger on smaller screens for comfort */
+        --fs-body:   1.08rem;
+        --fs-small:  0.96rem;
+        --fs-xsmall: 0.87rem;
+        --fs-mono:   0.80rem;
+        --fs-tag:    0.76rem;
+      }
+
+      html { font-size: 16px; }
+
+      .section-padding { padding: 60px 0; }
+
+      /* Bigger section titles on mobile */
+      .section-title {
+        font-size: clamp(2rem, 7vw, 2.8rem);
+        line-height: 1.15;
+      }
+
+      .hero-heading {
+        font-size: clamp(2.1rem, 8vw, 3rem);
+        line-height: 1.1;
+      }
+
+      .hero-typed-wrap {
+        font-size: clamp(1.6rem, 6vw, 2.2rem);
+      }
+
+      .hero-desc {
+        font-size: 1.05rem;
+        line-height: 1.95;
+      }
+
+      /* More breathing room between hero stats */
+      .hero-stats {
+        gap: 1.8rem;
+      }
+
+      .hero-stat-num {
+        font-size: 2.1rem;
+      }
+
+      .hero-stat-label {
+        font-size: .75rem;
       }
 
       .about-img-main {
@@ -1959,16 +1820,45 @@
         height: 260px;
       }
 
-      .about-img-accent {
-        display: none;
+      .about-img-accent { display: none; }
+
+      /* About text bigger on mobile */
+      #about p {
+        font-size: 1.05rem !important;
+        line-height: 1.9 !important;
       }
 
-      .services-grid {
-        grid-template-columns: 1fr;
-      }
+      .feature-list li { font-size: 1.02rem; }
 
-      .contact-form-wrap {
-        padding: 24px;
+      .counter-num { font-size: 1.9rem; }
+
+      .services-grid { grid-template-columns: 1fr; }
+
+      /* Services text comfortable on mobile */
+      .service-title { font-size: 1.25rem; }
+      .service-desc  { font-size: 1.02rem; }
+
+      /* Industry card bigger text */
+      .industry-name { font-size: 1rem; }
+      .industry-desc { font-size: .85rem; }
+
+      /* Partner card text */
+      .partner-name { font-size: 1.02rem; }
+      .partner-desc { font-size: .92rem; }
+
+      /* Why card text */
+      .why-title { font-size: 1.15rem; }
+      .why-desc  { font-size: 1.02rem; }
+
+      /* Contact detail bigger on mobile */
+      .contact-detail-value { font-size: 1rem; }
+
+      .contact-form-wrap { padding: 24px 20px; }
+
+      /* Form fields bigger touch target */
+      .form-control-custom {
+        padding: 14px 15px;
+        font-size: 1.05rem;
       }
 
       .footer-bottom {
@@ -1976,12 +1866,23 @@
         text-align: center;
       }
 
-      .hero-card-float {
-        display: none;
-      }
+      .hero-card-float { display: none; }
+
+      /* Footer comfortable reading */
+      .footer-desc  { font-size: .95rem; }
+      .footer-links a { font-size: .95rem; }
+      .footer-contact-item { font-size: .93rem; }
     }
 
-    @media(max-width:480px) {
+    @media (max-width: 480px) {
+      :root {
+        --fs-body:   1.1rem;
+        --fs-small:  0.98rem;
+        --fs-xsmall: 0.88rem;
+        --fs-mono:   0.80rem;
+        --fs-tag:    0.76rem;
+      }
+
       .hero-btns {
         flex-direction: column;
         align-items: flex-start;
@@ -1991,7 +1892,28 @@
       .btn-outline-custom {
         width: 100%;
         justify-content: center;
+        padding: 15px 20px;
+        font-size: 1rem;
       }
+
+      /* Larger tap targets on small phones */
+      .contact-info-card { padding: 18px 16px; }
+
+      .why-card  { padding: 28px 20px; }
+      .why-title { font-size: 1.12rem; }
+      .why-desc  { font-size: 1.02rem; line-height: 1.85; }
+
+      .service-card { padding: 28px 22px; }
+
+      .counters-row { gap: .75rem; }
+
+      .counter-box  { padding: 16px 10px; }
+      .counter-num  { font-size: 1.75rem; }
+      .counter-label { font-size: .78rem; }
+
+      /* Navbar brand smaller on tiny screens */
+      .brand-name { font-size: 1rem; }
+      .brand-tag  { font-size: .55rem; }
     }
 
     /* ── DARK MODE OVERRIDE FOR SWIPER BUTTONS ── */
@@ -2080,10 +2002,8 @@
             Bangladesh and international markets — backed by verified global partnerships.
           </p>
           <div class="hero-btns">
-            <a href="#services" class="btn-primary-custom"><span>Explore Services</span><i
-                class="bi bi-arrow-right"></i></a>
-            <a href="#contact" class="btn-outline-custom"><span>Get Consultation</span><i
-                class="bi bi-chat-dots"></i></a>
+            <a href="#services" class="btn-primary-custom"><span>Explore Services</span><i class="bi bi-arrow-right"></i></a>
+            <a href="#contact" class="btn-outline-custom"><span>Get Consultation</span><i class="bi bi-chat-dots"></i></a>
           </div>
           <div class="hero-stats">
             <div class="hero-stat">
@@ -2107,13 +2027,13 @@
             <div class="hero-card-float hero-card-1">
               <div class="card-icon-wrap"><i class="bi bi-boxes"></i></div>
               <div class="card-label">Core Focus</div>
-              <div class="card-value" style="font-size:1.1rem;">Turnkey & Trade</div>
+              <div class="card-value" style="font-size:1.15rem;">Turnkey &amp; Trade</div>
               <div class="card-sub card-sub-gold">End-to-end delivery</div>
             </div>
             <div class="hero-card-float hero-card-2">
               <div class="card-icon-wrap card-icon-gold"><i class="bi bi-globe2"></i></div>
               <div class="card-label">Head Office</div>
-              <div class="card-value" style="font-size:1.1rem;">Dhaka, BD</div>
+              <div class="card-value" style="font-size:1.15rem;">Dhaka, BD</div>
               <div class="card-sub">Arambagh, Motijheel</div>
             </div>
             <div class="hero-card-float hero-card-3">
@@ -2127,9 +2047,7 @@
       </div>
     </div>
     <a href="#about" class="hero-scroll">
-      <div class="scroll-mouse">
-        <div class="scroll-wheel"></div>
-      </div>
+      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
       Scroll
     </a>
   </section>
@@ -2140,12 +2058,8 @@
       <div class="row align-items-center g-5">
         <div class="col-lg-5" data-aos="fade-right">
           <div class="about-img-stack">
-            <div class="about-img-main"><img
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80"
-                alt="Industrial facility" /></div>
-            <div class="about-img-accent"><img
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80" alt="Engineering team" />
-            </div>
+            <div class="about-img-main"><img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80" alt="Industrial facility" /></div>
+            <div class="about-img-accent"><img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80" alt="Engineering team" /></div>
             <div class="about-exp-badge">
               <div class="num">6+</div>
               <div class="label">Years of<br>Excellence</div>
@@ -2156,36 +2070,17 @@
           <div class="section-subtitle">About Aerobeth</div>
           <h2 class="section-title">Your Trusted Partner for <span class="gradient-text">Industrial Growth</span></h2>
           <div class="accent-line"></div>
-          <p style="color:var(--text-muted);font-size:.95rem;line-height:1.9;margin-bottom:1rem;">
-            Founded in 2019, <strong style="color:var(--text-dark);">Aerobeth Global Trading Corporation</strong> has
-            grown into a leading provider of turnkey solutions and export-import services. Headquartered at <strong
-              style="color:var(--text-dark);">10/2 Gawsia Kashem Tower, Arambagh, Motijheel, Dhaka–1000</strong>, with a
-            branch at <strong style="color:var(--text-dark);">Ward No. 09, Mazer Fadi Station, Chakaria, Cox's Bazar –
-              4741</strong>.
+          <p style="color:var(--text-muted);font-size:var(--fs-body);line-height:1.9;margin-bottom:1rem;">
+            Founded in 2019, <strong style="color:var(--text-dark);">Aerobeth Global Trading Corporation</strong> has grown into a leading provider of turnkey solutions and export-import services. Headquartered at <strong style="color:var(--text-dark);">10/2 Gawsia Kashem Tower, Arambagh, Motijheel, Dhaka–1000</strong>, with a branch at <strong style="color:var(--text-dark);">Ward No. 09, Mazer Fadi Station, Chakaria, Cox's Bazar – 4741</strong>.
           </p>
-          <p style="color:var(--text-muted);font-size:.95rem;line-height:1.9;">
-            Our core services — <strong style="color:var(--text-dark);">Turnkey Solutions</strong> and <strong
-              style="color:var(--text-dark);">Export-Import</strong> — are delivered with uncompromising quality,
-            technical precision, and full accountability. We work with verified global partners in China, Hong Kong, and
-            beyond to bring the best industrial products and solutions to our clients.
+          <p style="color:var(--text-muted);font-size:var(--fs-body);line-height:1.9;">
+            Our core services — <strong style="color:var(--text-dark);">Turnkey Solutions</strong> and <strong style="color:var(--text-dark);">Export-Import</strong> — are delivered with uncompromising quality, technical precision, and full accountability. We work with verified global partners in China, Hong Kong, and beyond to bring the best industrial products and solutions to our clients.
           </p>
           <ul class="feature-list">
-            <li>
-              <div class="icon"><i class="bi bi-check-lg"></i></div><span>End-to-end turnkey project execution with zero
-                compromise</span>
-            </li>
-            <li>
-              <div class="icon"><i class="bi bi-check-lg"></i></div><span>Verified global supplier network — China, Hong
-                Kong &amp; beyond</span>
-            </li>
-            <li>
-              <div class="icon"><i class="bi bi-check-lg"></i></div><span>Quality-driven procurement for industrial
-                &amp; consumer sectors</span>
-            </li>
-            <li>
-              <div class="icon"><i class="bi bi-check-lg"></i></div><span>Business hours: Saturday–Thursday, 09:00–17:00
-                BST</span>
-            </li>
+            <li><div class="icon"><i class="bi bi-check-lg"></i></div><span>End-to-end turnkey project execution with zero compromise</span></li>
+            <li><div class="icon"><i class="bi bi-check-lg"></i></div><span>Verified global supplier network — China, Hong Kong &amp; beyond</span></li>
+            <li><div class="icon"><i class="bi bi-check-lg"></i></div><span>Quality-driven procurement for industrial &amp; consumer sectors</span></li>
+            <li><div class="icon"><i class="bi bi-check-lg"></i></div><span>Business hours: Saturday–Thursday, 09:00–17:00 BST</span></li>
           </ul>
           <div class="counters-row">
             <div class="counter-box">
@@ -2213,17 +2108,14 @@
         <div class="section-subtitle">What We Offer</div>
         <h2 class="section-title">Our Core <span class="gradient-text">Services</span></h2>
         <div class="accent-line centered"></div>
-        <p class="section-desc mx-auto">Two flagship service lines engineered for performance, reliability, and
-          long-term value creation.</p>
+        <p class="section-desc mx-auto">Two flagship service lines engineered for performance, reliability, and long-term value creation.</p>
       </div>
       <div class="services-grid" style="grid-template-columns:repeat(auto-fit,minmax(340px,1fr));margin-top:3rem;">
         <div class="service-card" data-aos="fade-up" data-aos-delay="0">
           <div class="service-number">01</div>
           <div class="service-icon-wrap icon-blue"><i class="bi bi-building-gear"></i></div>
           <h3 class="service-title">Turnkey Solutions</h3>
-          <p class="service-desc">Complete project delivery from concept to commissioning. We handle design,
-            procurement, installation, and handover — a single point of accountability for your entire project. Serving
-            lubricant plants, brick plants, agro industries, and more.</p>
+          <p class="service-desc">Complete project delivery from concept to commissioning. We handle design, procurement, installation, and handover — a single point of accountability for your entire project. Serving lubricant plants, brick plants, agro industries, and more.</p>
           <div class="service-tags">
             <span class="service-tag">EPC Projects</span>
             <span class="service-tag">Design-Build</span>
@@ -2235,9 +2127,7 @@
           <div class="service-number">02</div>
           <div class="service-icon-wrap icon-gold"><i class="bi bi-arrow-left-right"></i></div>
           <h3 class="service-title">Export-Import</h3>
-          <p class="service-desc">Global procurement and trade of industrial goods, consumer products, medical
-            equipment, and specialty materials — sourced from verified international manufacturers in China, Hong Kong,
-            and other markets, delivered on schedule with full documentation.</p>
+          <p class="service-desc">Global procurement and trade of industrial goods, consumer products, medical equipment, and specialty materials — sourced from verified international manufacturers in China, Hong Kong, and other markets, delivered on schedule with full documentation.</p>
           <div class="service-tags">
             <span class="service-tag">Import</span>
             <span class="service-tag">Export</span>
@@ -2250,34 +2140,24 @@
       <!-- Sub-services -->
       <div class="row g-3 mt-3">
         <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
-          <div class="service-card" style="padding:24px 22px;">
-            <div class="service-icon-wrap icon-blue"
-              style="width:46px;height:46px;font-size:1.1rem;border-radius:10px;margin-bottom:1rem;"><i
-                class="bi bi-box-seam"></i></div>
-            <h5 class="service-title" style="font-size:1rem;">Procurement &amp; Supply</h5>
-            <p class="service-desc" style="font-size:.84rem;margin-bottom:.8rem;">Strategic sourcing, vendor
-              qualification, and last-mile delivery of industrial materials.</p>
+          <div class="service-card" style="padding:26px 24px;">
+            <div class="service-icon-wrap icon-blue" style="width:48px;height:48px;font-size:1.15rem;border-radius:10px;margin-bottom:1rem;"><i class="bi bi-box-seam"></i></div>
+            <h5 class="service-title" style="font-size:1.08rem;">Procurement &amp; Supply</h5>
+            <p class="service-desc" style="font-size:var(--fs-body);margin-bottom:.8rem;">Strategic sourcing, vendor qualification, and last-mile delivery of industrial materials.</p>
           </div>
         </div>
         <div class="col-md-4" data-aos="fade-up" data-aos-delay="80">
-          <div class="service-card" style="padding:24px 22px;">
-            <div class="service-icon-wrap icon-gold"
-              style="width:46px;height:46px;font-size:1.1rem;border-radius:10px;margin-bottom:1rem;"><i
-                class="bi bi-cpu"></i></div>
-            <h5 class="service-title" style="font-size:1rem;">Engineering Support</h5>
-            <p class="service-desc" style="font-size:.84rem;margin-bottom:.8rem;">Technical consultancy, feasibility
-              studies, and hands-on industrial engineering support.</p>
+          <div class="service-card" style="padding:26px 24px;">
+            <div class="service-icon-wrap icon-gold" style="width:48px;height:48px;font-size:1.15rem;border-radius:10px;margin-bottom:1rem;"><i class="bi bi-cpu"></i></div>
+            <h5 class="service-title" style="font-size:1.08rem;">Engineering Support</h5>
+            <p class="service-desc" style="font-size:var(--fs-body);margin-bottom:.8rem;">Technical consultancy, feasibility studies, and hands-on industrial engineering support.</p>
           </div>
         </div>
         <div class="col-md-4" data-aos="fade-up" data-aos-delay="160">
-          <div class="service-card" style="padding:24px 22px;">
-            <div class="service-icon-wrap"
-              style="width:46px;height:46px;font-size:1.1rem;border-radius:10px;margin-bottom:1rem;background:rgba(46,194,126,.1);color:#1a9a5c;border:1px solid rgba(46,194,126,.2);">
-              <i class="bi bi-tools"></i>
-            </div>
-            <h5 class="service-title" style="font-size:1rem;">Supply Chain &amp; Logistics</h5>
-            <p class="service-desc" style="font-size:.84rem;margin-bottom:.8rem;">End-to-end supply chain management,
-              storage solutions, and distribution services.</p>
+          <div class="service-card" style="padding:26px 24px;">
+            <div class="service-icon-wrap" style="width:48px;height:48px;font-size:1.15rem;border-radius:10px;margin-bottom:1rem;background:rgba(46,194,126,.1);color:#1a9a5c;border:1px solid rgba(46,194,126,.2);"><i class="bi bi-tools"></i></div>
+            <h5 class="service-title" style="font-size:1.08rem;">Supply Chain &amp; Logistics</h5>
+            <p class="service-desc" style="font-size:var(--fs-body);margin-bottom:.8rem;">End-to-end supply chain management, storage solutions, and distribution services.</p>
           </div>
         </div>
       </div>
@@ -2289,12 +2169,9 @@
     <div class="container">
       <div class="text-center" data-aos="fade-up">
         <div class="section-subtitle">Our Expertise</div>
-        <h2 class="section-title">Industries We <span
-            style="background:linear-gradient(135deg,var(--accent-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Serve</span>
-        </h2>
+        <h2 class="section-title">Industries We <span style="background:linear-gradient(135deg,var(--accent-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Serve</span></h2>
         <div class="accent-line centered"></div>
-        <p class="section-desc mx-auto" style="color:rgba(255,255,255,.5);">Serving diverse industrial and commercial
-          sectors with tailored solutions.</p>
+        <p class="section-desc mx-auto" style="color:rgba(255,255,255,.5);">Serving diverse industrial and commercial sectors with tailored solutions.</p>
       </div>
       <div class="industry-cards mt-5">
         <div class="industry-card" data-aos="zoom-in" data-aos-delay="0"><span class="industry-icon">🛢️</span>
@@ -2406,8 +2283,7 @@
         <div class="section-subtitle">Global Network</div>
         <h2 class="section-title">Our International <span class="gradient-text">Partners</span></h2>
         <div class="accent-line centered"></div>
-        <p class="section-desc mx-auto">Verified partnerships across China and Hong Kong enabling superior sourcing,
-          pricing, and supply chain excellence.</p>
+        <p class="section-desc mx-auto">Verified partnerships across China and Hong Kong enabling superior sourcing, pricing, and supply chain excellence.</p>
       </div>
       <div class="partners-grid" data-aos="fade-up" data-aos-delay="100">
         <div class="partner-card">
@@ -2415,8 +2291,7 @@
           <div>
             <div class="partner-name">Bright Promotion Limited</div>
             <div class="partner-loc">Hong Kong &amp; Shanghai, China</div>
-            <div class="partner-desc">Strategic trading partner for industrial goods, promotional products, and supply
-              chain solutions across Asia.</div>
+            <div class="partner-desc">Strategic trading partner for industrial goods, promotional products, and supply chain solutions across Asia.</div>
           </div>
         </div>
         <div class="partner-card">
@@ -2424,8 +2299,7 @@
           <div>
             <div class="partner-name">Fancyco Limited</div>
             <div class="partner-loc">Tianjin, China</div>
-            <div class="partner-desc">Manufacturing and export partner for diverse industrial and consumer product
-              categories.</div>
+            <div class="partner-desc">Manufacturing and export partner for diverse industrial and consumer product categories.</div>
           </div>
         </div>
         <div class="partner-card">
@@ -2433,8 +2307,7 @@
           <div>
             <div class="partner-name">Hefei Sada Medical Equipment Co., Ltd.</div>
             <div class="partner-loc">Hefei, Anhui Province, China</div>
-            <div class="partner-desc">Specialized medical equipment manufacturer providing quality healthcare devices
-              and instruments.</div>
+            <div class="partner-desc">Specialized medical equipment manufacturer providing quality healthcare devices and instruments.</div>
           </div>
         </div>
         <div class="partner-card">
@@ -2442,14 +2315,12 @@
           <div>
             <div class="partner-name">Guangzhou Flamingo Car Care Tech Co., Ltd.</div>
             <div class="partner-loc">Guangzhou, Guangdong, China</div>
-            <div class="partner-desc">Auto care technology manufacturer specializing in car care products, lubricants,
-              and maintenance solutions.</div>
+            <div class="partner-desc">Auto care technology manufacturer specializing in car care products, lubricants, and maintenance solutions.</div>
           </div>
         </div>
       </div>
       <div class="text-center mt-4" data-aos="fade-up">
-        <p style="color:var(--text-muted);font-size:.88rem;font-family:var(--font-mono);">+ More verified partners in
-          our growing global network</p>
+        <p style="color:var(--text-muted);font-size:var(--fs-small);font-family:var(--font-mono);">+ More verified partners in our growing global network</p>
       </div>
     </div>
   </section>
@@ -2467,36 +2338,31 @@
           <div class="why-num">01</div>
           <div class="why-icon"><i class="bi bi-diagram-3-fill"></i></div>
           <h4 class="why-title">End-to-End Solutions</h4>
-          <p class="why-desc">From feasibility study to final handover, we manage every phase — eliminating coordination
-            risk and ensuring seamless delivery for our clients.</p>
+          <p class="why-desc">From feasibility study to final handover, we manage every phase — eliminating coordination risk and ensuring seamless delivery for our clients.</p>
         </div>
         <div class="why-card" data-aos="fade-up" data-aos-delay="80">
           <div class="why-num">02</div>
           <div class="why-icon"><i class="bi bi-globe2"></i></div>
           <h4 class="why-title">Global Supplier Network</h4>
-          <p class="why-desc">Verified partnerships in China and Hong Kong give our clients access to premium products
-            at highly competitive international pricing.</p>
+          <p class="why-desc">Verified partnerships in China and Hong Kong give our clients access to premium products at highly competitive international pricing.</p>
         </div>
         <div class="why-card" data-aos="fade-up" data-aos-delay="160">
           <div class="why-num">03</div>
           <div class="why-icon"><i class="bi bi-patch-check-fill"></i></div>
           <h4 class="why-title">Quality Assurance</h4>
-          <p class="why-desc">Rigorous quality controls, verified vendors, and careful product inspection ensure every
-            deliverable meets the highest standards.</p>
+          <p class="why-desc">Rigorous quality controls, verified vendors, and careful product inspection ensure every deliverable meets the highest standards.</p>
         </div>
         <div class="why-card" data-aos="fade-up" data-aos-delay="240">
           <div class="why-num">04</div>
           <div class="why-icon"><i class="bi bi-headset"></i></div>
           <h4 class="why-title">Dedicated Support</h4>
-          <p class="why-desc">Our team provides dedicated client support during business hours (Sat–Thu, 09:00–17:00)
-            with rapid response and clear communication.</p>
+          <p class="why-desc">Our team provides dedicated client support during business hours (Sat–Thu, 09:00–17:00) with rapid response and clear communication.</p>
         </div>
         <div class="why-card" data-aos="fade-up" data-aos-delay="320">
           <div class="why-num">05</div>
           <div class="why-icon"><i class="bi bi-currency-dollar"></i></div>
           <h4 class="why-title">Cost Effective</h4>
-          <p class="why-desc">Optimized procurement, volume leverage, and direct supplier relationships deliver premium
-            solutions at highly competitive pricing.</p>
+          <p class="why-desc">Optimized procurement, volume leverage, and direct supplier relationships deliver premium solutions at highly competitive pricing.</p>
         </div>
       </div>
     </div>
@@ -2509,8 +2375,7 @@
         <div class="section-subtitle">Get In Touch</div>
         <h2 class="section-title">Let's Build <span class="gradient-text">Together</span></h2>
         <div class="accent-line centered"></div>
-        <p class="section-desc mx-auto">Have a project in mind? Reach out to our team and we'll get back to you within
-          business hours.</p>
+        <p class="section-desc mx-auto">Have a project in mind? Reach out to our team and we'll get back to you within business hours.</p>
       </div>
       <div class="row g-4">
         <div class="col-lg-5" data-aos="fade-right">
@@ -2518,16 +2383,14 @@
             <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
             <div>
               <div class="contact-detail-label">Head Office</div>
-              <div class="contact-detail-value">10/2 Gawsia Kashem Tower<br>Arambagh, Motijheel, Dhaka –
-                1000<br>Bangladesh</div>
+              <div class="contact-detail-value">10/2 Gawsia Kashem Tower<br>Arambagh, Motijheel, Dhaka – 1000<br>Bangladesh</div>
             </div>
           </div>
           <div class="contact-info-card">
             <div class="contact-icon gold"><i class="bi bi-geo-alt-fill"></i></div>
             <div>
               <div class="contact-detail-label">Branch Office</div>
-              <div class="contact-detail-value">Ward No. 09, Mazer Fadi Station<br>Chakaria, Cox's Bazar –
-                4741<br>Bangladesh</div>
+              <div class="contact-detail-value">Ward No. 09, Mazer Fadi Station<br>Chakaria, Cox's Bazar – 4741<br>Bangladesh</div>
             </div>
           </div>
           <div class="contact-info-card">
@@ -2557,39 +2420,29 @@
             </div>
           </div>
           <div class="map-embed">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14821.88149707652!2d92.05668509105844!3d21.762049088198033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30ada158eaa80fd5%3A0xaed57752b632177e!2sChakaria!5e0!3m2!1sen!2sbd!4v1778822102403!5m2!1sen!2sbd"
-              width="100%" height="200" style="border:0;display:block;" loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14821.88149707652!2d92.05668509105844!3d21.762049088198033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30ada158eaa80fd5%3A0xaed57752b632177e!2sChakaria!5e0!3m2!1sen!2sbd!4v1778822102403!5m2!1sen!2sbd"
+              width="100%" height="200" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
         <div class="col-lg-7" data-aos="fade-left" data-aos-delay="150">
           <div class="contact-form-wrap">
-            <h3
-              style="font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--text-dark);margin-bottom:1.5rem;">
-              Send Us a Message</h3>
-            <div id="formAlert" class="d-none"
-              style="background:rgba(46,194,126,.08);border:1px solid rgba(46,194,126,.3);border-radius:8px;padding:15px;margin-bottom:1.5rem;color:#1a9a5c;font-size:.9rem;">
-              <i class="bi bi-check-circle-fill me-2"></i> Thank you! Your message has been sent. We'll respond within
-              business hours.
+            <h3 style="font-family:var(--font-display);font-size:1.75rem;font-weight:700;color:var(--text-dark);margin-bottom:1.5rem;">Send Us a Message</h3>
+            <div id="formAlert" class="d-none" style="background:rgba(46,194,126,.08);border:1px solid rgba(46,194,126,.3);border-radius:8px;padding:16px;margin-bottom:1.5rem;color:#1a9a5c;font-size:var(--fs-body);">
+              <i class="bi bi-check-circle-fill me-2"></i> Thank you! Your message has been sent. We'll respond within business hours.
             </div>
             <form id="contactForm" novalidate>
               <div class="row g-3">
                 <div class="col-md-6">
-                  <div class="form-group"><label class="form-label-custom">Full Name *</label><input type="text"
-                      class="form-control-custom" placeholder="Your full name" required /></div>
+                  <div class="form-group"><label class="form-label-custom">Full Name *</label><input type="text" class="form-control-custom" placeholder="Your full name" required /></div>
                 </div>
                 <div class="col-md-6">
-                  <div class="form-group"><label class="form-label-custom">Company</label><input type="text"
-                      class="form-control-custom" placeholder="Your company" /></div>
+                  <div class="form-group"><label class="form-label-custom">Company</label><input type="text" class="form-control-custom" placeholder="Your company" /></div>
                 </div>
                 <div class="col-md-6">
-                  <div class="form-group"><label class="form-label-custom">Email *</label><input type="email"
-                      class="form-control-custom" placeholder="your@email.com" required /></div>
+                  <div class="form-group"><label class="form-label-custom">Email *</label><input type="email" class="form-control-custom" placeholder="your@email.com" required /></div>
                 </div>
                 <div class="col-md-6">
-                  <div class="form-group"><label class="form-label-custom">Phone</label><input type="tel"
-                      class="form-control-custom" placeholder="+880 XXXX-XXXXXX" /></div>
+                  <div class="form-group"><label class="form-label-custom">Phone</label><input type="tel" class="form-control-custom" placeholder="+880 XXXX-XXXXXX" /></div>
                 </div>
                 <div class="col-12">
                   <div class="form-group"><label class="form-label-custom">Service Interested In</label>
@@ -2605,13 +2458,9 @@
                   </div>
                 </div>
                 <div class="col-12">
-                  <div class="form-group"><label class="form-label-custom">Message *</label><textarea
-                      class="form-control-custom" rows="5" placeholder="Tell us about your project requirements..."
-                      required></textarea></div>
+                  <div class="form-group"><label class="form-label-custom">Message *</label><textarea class="form-control-custom" rows="5" placeholder="Tell us about your project requirements..." required></textarea></div>
                 </div>
-                <div class="col-12"><button type="submit"
-                    class="btn-primary-custom w-100 justify-content-center"><span>Send Message</span><i
-                      class="bi bi-send"></i></button></div>
+                <div class="col-12"><button type="submit" class="btn-primary-custom w-100 justify-content-center"><span>Send Message</span><i class="bi bi-send"></i></button></div>
               </div>
             </form>
           </div>
@@ -2627,23 +2476,17 @@
         <div class="col-lg-4 col-md-6">
           <div class="footer-brand mb-3">
             <a href="#hero" class="navbar-brand-custom">
-              <!-- Removed the semicolon from src and moved styles to CSS -->
-              <img style="width: 50px; filter: brightness(0) invert(1);" src="./assets/images/logo.png"
-                class="footer-logo" alt="Aerobeth Global Logo">
-
+              <img src="./assets/images/logo.png" class="footer-logo" style="width:50px;" alt="Aerobeth Global Logo">
               <div class="brand-text">
                 <span class="brand-name">Aerobeth Global</span>
                 <span class="brand-tag">Trading Corporation</span>
               </div>
             </a>
           </div>
-          <p class="footer-desc">A premier industrial trading and turnkey solutions company delivering excellence across
-            Bangladesh and international markets since 2019.</p>
+          <p class="footer-desc">A premier industrial trading and turnkey solutions company delivering excellence across Bangladesh and international markets since 2019.</p>
           <div class="social-links">
-            <a href="https://web.facebook.com/people/Aerobeth-Global-Trading-Corporation/61572367195142/"
-              target="_blank" rel="noopener" class="social-link" title="Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="https://wa.me/8801849721207" target="_blank" rel="noopener" class="social-link" title="WhatsApp"><i
-                class="bi bi-whatsapp"></i></a>
+            <a href="https://web.facebook.com/people/Aerobeth-Global-Trading-Corporation/61572367195142/" target="_blank" rel="noopener" class="social-link" title="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://wa.me/8801849721207" target="_blank" rel="noopener" class="social-link" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
           </div>
         </div>
         <div class="col-lg-2 col-md-6">
@@ -2670,10 +2513,8 @@
         </div>
         <div class="col-lg-3 col-md-6">
           <h5 class="footer-heading">Contact Info</h5>
-          <div class="footer-contact-item"><i class="bi bi-geo-alt-fill"></i><span>10/2 Gawsia Kashem Tower, Arambagh,
-              Motijheel, Dhaka – 1000</span></div>
-          <div class="footer-contact-item"><i class="bi bi-geo-alt-fill"></i><span>Ward No. 09, Mazer Fadi Station,
-              Chakaria, Cox's Bazar – 4741</span></div>
+          <div class="footer-contact-item"><i class="bi bi-geo-alt-fill"></i><span>10/2 Gawsia Kashem Tower, Arambagh, Motijheel, Dhaka – 1000</span></div>
+          <div class="footer-contact-item"><i class="bi bi-geo-alt-fill"></i><span>Ward No. 09, Mazer Fadi Station, Chakaria, Cox's Bazar – 4741</span></div>
           <div class="footer-contact-item"><i class="bi bi-telephone-fill"></i><span>+880 1849-721207</span></div>
           <div class="footer-contact-item"><i class="bi bi-envelope-fill"></i><span>md@aerobethgtc.com</span></div>
           <div class="footer-contact-item"><i class="bi bi-clock-fill"></i><span>Sat–Thu, 9:00 AM – 5:00 PM</span></div>
