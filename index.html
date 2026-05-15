@@ -50,6 +50,11 @@
       --font-body: 'DM Sans', sans-serif;
       --font-mono: 'DM Mono', monospace;
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+      --font-main-size: 1.1rem;
+      /* Increased from 1rem */
+      --line-height-base: 1.8;
+      /* Slightly more breathing room */
     }
 
     [data-theme="dark"] {
@@ -95,6 +100,15 @@
       color: var(--text-dark);
       overflow-x: hidden;
       line-height: 1.7;
+      transition: background 0.4s ease, color 0.4s ease;
+
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      font-size: var(--font-main-size);
+      /* Applied here */
+      line-height: var(--line-height-base);
       transition: background 0.4s ease, color 0.4s ease;
     }
 
@@ -2259,7 +2273,8 @@
           <div class="service-card" style="padding:24px 22px;">
             <div class="service-icon-wrap"
               style="width:46px;height:46px;font-size:1.1rem;border-radius:10px;margin-bottom:1rem;background:rgba(46,194,126,.1);color:#1a9a5c;border:1px solid rgba(46,194,126,.2);">
-              <i class="bi bi-tools"></i></div>
+              <i class="bi bi-tools"></i>
+            </div>
             <h5 class="service-title" style="font-size:1rem;">Supply Chain &amp; Logistics</h5>
             <p class="service-desc" style="font-size:.84rem;margin-bottom:.8rem;">End-to-end supply chain management,
               storage solutions, and distribution services.</p>
@@ -2613,7 +2628,8 @@
           <div class="footer-brand mb-3">
             <a href="#hero" class="navbar-brand-custom">
               <!-- Removed the semicolon from src and moved styles to CSS -->
-              <img style="width: 50px; filter: brightness(0) invert(1);" src="./assets/images/logo.png" class="footer-logo" alt="Aerobeth Global Logo">
+              <img style="width: 50px; filter: brightness(0) invert(1);" src="./assets/images/logo.png"
+                class="footer-logo" alt="Aerobeth Global Logo">
 
               <div class="brand-text">
                 <span class="brand-name">Aerobeth Global</span>
